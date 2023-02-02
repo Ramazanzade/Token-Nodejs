@@ -20,7 +20,7 @@ mongoose.connect('mongodb+srv://Nizam:Niza2002m@cluster0.t5dydtz.mongodb.net/tes
 let privateKey = 'tokenPrivetKey'
 
 app.use((req, res, next)=>{
-    if(req.url = '/token')
+    if(req.url = '/token'  || req.url == '/token/tokencontrol')
     return next()
     let auth = req.header?.authorization
     if(auth != undefined){

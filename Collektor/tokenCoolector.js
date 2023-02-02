@@ -3,14 +3,12 @@ var jwt = require('jsonwebtoken');
 let privateKey = "tokenPrivetKey";
 
 const tokencontruler={
-    tokencontrul:(req, res)=>{
+    login:(req, res)=>{
         let email = req.body.email.toLowerCase().trim();
         let passwod = req.body.passwod;
-        let name = req.body.name;
-        let surname=req.body.surname;
-        let username=req.body.username
+      
 
-        user.findOne({email:email , passwod:passwod, name:name, surname:surname, username:username} , (err, doc)=>{
+        user.findOne({email:email , passwod:passwod} , (err, doc)=>{
             if(!err){
                 if(doc){
                     let token = jwt.sign({email:email}, privateKey,{
@@ -28,6 +26,19 @@ const tokencontruler={
                 res.status(500).json(err)
             }
         })
+    },
+    tokenControl: (req, res) => {
+
+        let token = req.body.token;
+
+        jwt.verify(token, privateKey, function (err, doc) {
+            if (err)
+                res.status(401).json({ 'message': 'token error1!' })
+            else
+                res.send('OK!');
+        })
+
+
     }
 }
 
